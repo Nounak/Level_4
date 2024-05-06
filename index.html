@@ -1,0 +1,50 @@
+<template>
+  <div v-if="showNotification" :class="notificationType">
+    <p>{{ message }}</p>
+    <button @click="closeNotification">Close</button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    message: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      default: 'info'
+    }
+  },
+  data() {
+    return {
+      showNotification: true
+    };
+  },
+  computed: {
+    notificationType() {
+      return 'notification-' + this.type;
+    }
+  },
+  methods: {
+    closeNotification() {
+      this.showNotification = false;
+      // Navigate back to previous page using Vue Router
+      this.$router.go(-1);
+    }
+  }
+};
+</script>
+
+<style>
+.notification-info {
+  background-color: lightblue;
+}
+.notification-error {
+  background-color: lightcoral;
+}
+.notification-success {
+  background-color: lightgreen;
+}
+</style>
